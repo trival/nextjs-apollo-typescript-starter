@@ -1,7 +1,9 @@
 {
-  "name": "bogatzki-inc",
+  "name": "nextjs-typescript-graphql-starter",
   "version": "1.0.0",
-  "description": "artist portfolio bogatzki-inc",
+  "description": "Starter nextjs project configured for typescript, apollo graphql, styled-system and storybook.",
+  "author": "Thomas Gorny",
+  "license": "MIT",
   "scripts": {
     "dev": "next",
     "build": "NODE_ENV=production next build",
@@ -54,7 +56,5 @@
     "tslint-config-prettier": "^1.17.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "3.2.4"
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }
