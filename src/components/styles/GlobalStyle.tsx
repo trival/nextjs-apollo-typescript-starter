@@ -14,9 +14,10 @@ const GlobalStyle = createGlobalStyle`
 
 	body {
 		color: ${p => p.theme.colors.fontLight};
-		background: tomato;
 		font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
 		text-align: center;
+		background-color: ${p => p.theme.colors.gray};
+		transition: background-color 0.5s;
 	}
 
 	h1 {
@@ -36,6 +37,15 @@ const GlobalStyle = createGlobalStyle`
 	}
 	h6 {
 		font-size: ${p => p.theme.fontSizes.h6};
+	}
+
+	a {
+		color: ${p => p.theme.colors.fontLight};
+	}
+
+	img {
+		width: 100%;
+		vertical-align: bottom;
 	}
 `
 

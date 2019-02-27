@@ -12,7 +12,7 @@ const ErrorMessage: React.FunctionComponent<Props> = ({
 	<Styled
 		as="aside"
 		p={4}
-		bg="red"
+		bg="tomato"
 		color="white"
 		css="text-transform: uppercase"
 	>

@@ -1,4 +1,3 @@
-// @ts-ignore
 // import * as preactAlias from '@zeit/next-preact/alias'
 import { createServer } from 'http'
 import * as next from 'next'
@@ -11,6 +10,7 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+// tslint:disable-next-line: no-floating-promises
 app.prepare().then(() => {
 	createServer((req, res) => {
 		const parsedUrl = parse(req.url as string, true)
@@ -20,7 +20,7 @@ app.prepare().then(() => {
 		// } else if (pathname === '/b') {
 		// 	app.render(req, res, '/b', query)
 		// } else {
-		handle(req, res, parsedUrl)
+		return handle(req, res, parsedUrl)
 		// }
 	}).listen(port, (err?: Error) => {
 		if (err) throw err

@@ -1,5 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost'
 import fetch from 'isomorphic-unfetch'
+import { apiUrl } from './config'
 
 let apolloClient: any = null
 
@@ -14,7 +15,7 @@ function create(initialState: any) {
 		connectToDevTools: (process as any).browser,
 		ssrMode: !(process as any).browser, // Disables forceFetch on the server (so queries are only run once)
 		link: new HttpLink({
-			uri: 'https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn', // Server URL (must be absolute)
+			uri: apiUrl, // Server URL (must be absolute)
 			credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
 		}),
 		cache: new InMemoryCache().restore(initialState || {}),

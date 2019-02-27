@@ -11,8 +11,16 @@ import {
 	ColorProps,
 	fontSize,
 	FontSizeProps,
+	fontWeight,
+	FontWeightProps,
+	lineHeight,
+	LineHeightProps,
 	space,
 	SpaceProps,
+	textAlign,
+	TextAlignProps,
+	textStyle,
+	TextStyleProps,
 	width,
 	WidthProps,
 } from 'styled-system'
@@ -31,7 +39,11 @@ export type StyledProps<
 	ColorProps &
 	BordersProps &
 	BorderRadiusProps &
-	BorderColorProps
+	BorderColorProps &
+	LineHeightProps &
+	TextAlignProps &
+	FontWeightProps &
+	TextStyleProps
 
 const Styled: React.FunctionComponent<StyledProps> = styled.div`
 	${space}
@@ -41,6 +53,10 @@ const Styled: React.FunctionComponent<StyledProps> = styled.div`
 	${borders}
 	${borderColor}
 	${borderRadius}
+	${lineHeight}
+	${fontWeight}
+	${textAlign}
+	${textStyle}
 `
 
 export { Styled }

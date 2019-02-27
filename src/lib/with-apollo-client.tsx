@@ -23,7 +23,12 @@ export default (App: any) => {
 				try {
 					// Run all GraphQL queries
 					await getDataFromTree(
-						<App Component={Component} router={router} apolloClient={apollo} />,
+						<App
+							{...appProps}
+							Component={Component}
+							router={router}
+							apolloClient={apollo}
+						/>,
 					)
 				} catch (error) {
 					// Prevent Apollo Client GraphQL errors from crashing SSR.
