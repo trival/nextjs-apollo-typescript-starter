@@ -19,8 +19,8 @@ import {
 	SpaceProps,
 	textAlign,
 	TextAlignProps,
-	textStyle,
 	TextStyleProps,
+	variant,
 	width,
 	WidthProps,
 } from 'styled-system'
@@ -44,6 +44,11 @@ export type StyledProps<
 	TextAlignProps &
 	FontWeightProps &
 	TextStyleProps
+
+const textStyle = variant({
+	key: 'textStyles',
+	prop: 'textStyle',
+})
 
 const Styled: React.FunctionComponent<StyledProps> = styled.div`
 	${space}
