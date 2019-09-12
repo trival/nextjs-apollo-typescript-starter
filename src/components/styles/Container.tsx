@@ -1,26 +1,23 @@
 import * as React from 'react'
-import { Styled, StyledProps } from '../styles/Styled'
 import { breakpointLarge } from '../styles/theme'
+import { styles } from './system'
+import { $ } from './theme'
 
-const Container: React.FunctionComponent<StyledProps> = ({
-	children,
-	...props
-}) => (
-	<Styled
-		as="section"
-		textAlign="left"
-		mr="auto"
-		ml="auto"
-		px={[4, 5]}
-		py={[2, 3]}
-		css={`
-			position: relative;
-			max-width: ${breakpointLarge};
-		`}
-		{...props}
-	>
-		{children}
-	</Styled>
-)
+const useStyles = styles({
+	container: $($.mx('auto'), $.px([4, 5]), $.py([2, 3]), {
+		position: 'relative',
+		maxWidth: breakpointLarge,
+		textAlign: 'left',
+	}),
+})
+
+const Container = ({ children, ...props }: React.PropsWithChildren<any>) => {
+	const c = useStyles()
+	return (
+		<section {...props} className={c.container}>
+			{children}
+		</section>
+	)
+}
 
 export { Container }

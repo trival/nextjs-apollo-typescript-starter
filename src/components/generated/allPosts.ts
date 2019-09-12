@@ -2,6 +2,8 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
+import { PostOrderBy } from "./../../../generated/globalTypes";
+
 // ====================================================
 // GraphQL query operation: allPosts
 // ====================================================
@@ -22,4 +24,5 @@ export interface allPosts {
 export interface allPostsVariables {
   first: number;
   skip: number;
+  order?: PostOrderBy | null;
 }

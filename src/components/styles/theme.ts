@@ -1,3 +1,5 @@
+import { makeStyleHelpers } from './system'
+
 export const fontSizeInit = '16px'
 
 export const fontSizeBase = '1rem'
@@ -49,5 +51,10 @@ export const theme = {
 		},
 	},
 }
+
+export const $ = makeStyleHelpers({
+	spacing: theme.space,
+	breakpoints: theme.breakpoints,
+})
 
 export type Theme = typeof theme

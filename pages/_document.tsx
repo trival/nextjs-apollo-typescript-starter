@@ -1,49 +1,31 @@
-import Document, { Head, Main, NextScript } from 'next/document'
+import Document from 'next/document'
 import * as React from 'react'
-import { ServerStyleSheet } from 'styled-components'
+import { createGenerateId, JssProvider, SheetsRegistry } from 'react-jss'
 
 export default class MyDocument extends Document<any> {
 	static async getInitialProps(ctx: any) {
-		const sheet = new ServerStyleSheet()
+		const registry = new SheetsRegistry()
+		const generateId = createGenerateId()
 		const originalRenderPage = ctx.renderPage
-
-		try {
-			ctx.renderPage = () =>
-				originalRenderPage({
-					enhanceApp: (App: any) => (props: any) =>
-						sheet.collectStyles(<App {...props} />),
-				})
-
-			const initialProps = await Document.getInitialProps(ctx)
-			return {
-				...initialProps,
-				styles: (
-					<>
-						{initialProps.styles}
-						{sheet.getStyleElement()}
-					</>
+		ctx.renderPage = () =>
+			originalRenderPage({
+				enhanceApp: (App: any) => (props: any) => (
+					<JssProvider registry={registry} generateId={generateId}>
+						<App {...props} />
+					</JssProvider>
 				),
-			}
-		} finally {
-			sheet.seal()
-		}
-	}
+			})
 
-	render() {
-		return (
-			<html>
-				<Head>
-					<meta
-						name="viewport"
-						content="width=device-width, initial-scale=1, shrink-to-fit=no"
-					/>
-					<meta httpEquiv="x-ua-compatible" content="ie=edge" />
-				</Head>
-				<body>
-					<Main />
-					<NextScript />
-				</body>
-			</html>
-		)
+		const initialProps = await Document.getInitialProps(ctx)
+
+		return {
+			...initialProps,
+			styles: (
+				<React.Fragment key="styles">
+					{initialProps.styles}
+					<style id="server-side-styles">{registry.toString()}</style>
+				</React.Fragment>
+			),
+		}
 	}
 }

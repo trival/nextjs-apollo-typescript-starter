@@ -1,5 +1,5 @@
+import { QueryResult } from '@apollo/react-common'
 import * as React from 'react'
-import { QueryResult } from 'react-apollo'
 import { ErrorMessage } from '../ErrorMessage'
 import { Container } from '../styles/Container'
 import { LoadingAnimation } from './LoadingAnimation'

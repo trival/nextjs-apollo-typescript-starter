@@ -1,9 +1,8 @@
-import App, { Container } from 'next/app'
+import { ApolloProvider } from '@apollo/react-hooks'
+import App from 'next/app'
+import Head from 'next/head'
 import * as React from 'react'
-import { ApolloProvider } from 'react-apollo'
-import { GlobalStyle } from '../src/components/styles/GlobalStyle'
-import { ThemeProvider } from '../src/components/styles/styled-components'
-import { theme } from '../src/components/styles/theme'
+import { GlobalStyles } from '../src/components/styles/globalStyle'
 import withApolloClient from '../src/lib/with-apollo-client'
 
 interface Props {
@@ -11,19 +10,28 @@ interface Props {
 }
 
 class MyApp extends App<Props> {
+	componentDidMount() {
+		const style = document.getElementById('server-side-styles')
+
+		if (style) {
+			style.parentNode!.removeChild(style)
+		}
+	}
+
 	render() {
-		const { Component, pageProps, apolloClient } = this.props
+		const { Component, pageProps, apolloClient } = (this as any).props
 		return (
-			<Container>
-				<ApolloProvider client={apolloClient}>
-					<ThemeProvider theme={theme}>
-						<>
-							<GlobalStyle />
-							<Component {...pageProps} />
-						</>
-					</ThemeProvider>
-				</ApolloProvider>
-			</Container>
+			<ApolloProvider client={apolloClient}>
+				<Head>
+					<meta
+						name="viewport"
+						content="width=device-width, initial-scale=1, shrink-to-fit=no"
+					/>
+					<meta httpEquiv="x-ua-compatible" content="ie=edge" />
+				</Head>
+				<GlobalStyles />
+				<Component {...pageProps} />
+			</ApolloProvider>
 		)
 	}
 }

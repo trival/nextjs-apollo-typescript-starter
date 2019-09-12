@@ -1,21 +1,23 @@
 import Link from 'next/link'
-import { withRouter, WithRouterProps } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import * as React from 'react'
 
-const HeaderLayout: React.FunctionComponent<WithRouterProps> = ({ router }) => {
-	const pathname = router && router.pathname
+const HeaderLayout = ({ router }: { router: NextRouter }) => {
+	const { pathname } = router
 	return (
 		<header>
-			<Link prefetch href="/">
+			<Link href="/">
 				<a className={pathname === '/' ? 'is-active' : ''}>Home</a>
 			</Link>
-			<Link prefetch href="/about">
+			<Link href="/about">
 				<a className={pathname === '/about' ? 'is-active' : ''}>About</a>
 			</Link>
 		</header>
 	)
 }
-
-const Header = withRouter(HeaderLayout)
+const Header = () => {
+	const router = useRouter()
+	return <HeaderLayout router={router}></HeaderLayout>
+}
 
 export { Header, HeaderLayout }

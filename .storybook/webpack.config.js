@@ -6,20 +6,18 @@
 // When you add this file, we won't add the default configurations which is similar
 // to "React Create App". This only has babel loader to load JavaScript.
 
-module.exports =
-	(_baseConfig, _env, config) => {
-		config.module.rules.push({
-			test: /\.(ts|tsx)$/,
-			use: [{
+module.exports = ({ config }) => {
+	config.module.rules.push({
+		test: /\.(ts|tsx)$/,
+		use: [
+			{
 				loader: require.resolve('babel-loader'),
 				options: {
-					presets: [
-						"next/babel",
-						"@zeit/next-typescript/babel"
-					],
-				}
-			}]
-		});
-		config.resolve.extensions.push('.ts', '.tsx');
-		return config;
-	};
+					presets: ['next/babel'],
+				},
+			},
+		],
+	})
+	config.resolve.extensions.push('.ts', '.tsx')
+	return config
+}
