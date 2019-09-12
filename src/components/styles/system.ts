@@ -1,10 +1,10 @@
-import { Style } from 'jss'
-
-export { createUseStyles as styles } from 'react-jss'
+import createStyles from '@material-ui/styles/createStyles'
+import MUImakeStyles from '@material-ui/styles/makeStyles'
+import { createUseStyles } from 'react-jss'
 
 type S = number | string
 
-function merge(a: Style, b: Style): Style {
+function merge(a: any, b: any) {
 	const result = Object.assign({}, a, b)
 	for (const key in b) {
 		if (!a[key] || typeof b[key] !== 'object') continue
@@ -13,7 +13,7 @@ function merge(a: Style, b: Style): Style {
 	return result
 }
 
-function compose(...args: Style[]): Style {
+function compose(...args: any[]) {
 	return args.reduce(merge, {})
 }
 
@@ -108,8 +108,11 @@ export function makeSpaceHelpers(config: SpaceConfig) {
 }
 
 export function makeStyleHelpers(config: SpaceConfig) {
-	return Object.assign(compose, makeSpaceHelpers(config))
+	return Object.assign(compose, { compose }, makeSpaceHelpers(config))
 }
 
 export type SpaceHelpers = ReturnType<typeof makeSpaceHelpers>
 export type StyleHelpers = ReturnType<typeof makeStyleHelpers>
+
+export const styles: typeof MUImakeStyles = createUseStyles
+export { createStyles }

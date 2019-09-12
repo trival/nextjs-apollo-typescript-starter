@@ -20,8 +20,8 @@ export const breakpointSmall = '640px'
 
 export const lineHight = 1.4
 
-export const theme = {
-	space: ['0', '.25rem', '.5rem', '1rem', '2rem', '4rem'],
+export const themeObject = {
+	spacing: ['0', '.25rem', '.5rem', '1rem', '2rem', '4rem'],
 	fontSizes: {
 		init: fontSizeInit,
 		base: fontSizeBase,
@@ -52,9 +52,12 @@ export const theme = {
 	},
 }
 
-export const $ = makeStyleHelpers({
-	spacing: theme.space,
-	breakpoints: theme.breakpoints,
-})
+export const theme = Object.assign(
+	makeStyleHelpers({
+		spacing: themeObject.spacing,
+		breakpoints: themeObject.breakpoints,
+	}),
+	themeObject,
+)
 
 export type Theme = typeof theme

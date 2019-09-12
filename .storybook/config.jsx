@@ -4,6 +4,7 @@ import NextRouter from 'next/router'
 import { action } from '@storybook/addon-actions'
 import { useGlobalStyles } from '../src/components/styles/globalStyle'
 import * as React from 'react'
+import { theme } from '../src/components/styles/theme'
 
 // ===== general setup =====
 
@@ -17,7 +18,7 @@ NextRouter.router = mockedRouter
 // ===== add decoratore =====
 
 const Story = ({ story }) => {
-	useGlobalStyles()
+	useGlobalStyles(theme)
 	return <>{story()}</>
 }
 

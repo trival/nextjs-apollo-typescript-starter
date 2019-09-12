@@ -175,6 +175,7 @@ describe('style system', () => {
 			expect(typeof styles.m).toBe('function')
 			expect(typeof styles.px).toBe('function')
 			expect(typeof styles.t).toBe('function')
+			expect(typeof styles.compose).toBe('function')
 		})
 
 		it('composes responsive styles', () => {
