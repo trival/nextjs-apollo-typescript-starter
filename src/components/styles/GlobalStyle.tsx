@@ -1,7 +1,7 @@
 import { normalize } from 'polished'
-import { makeStyles, theme } from './theme'
+import { makeStyles } from './theme'
 
-export const useGlobalStyles = makeStyles({
+export const useGlobalStyles = makeStyles(theme => ({
 	'@global': theme.compose(
 		...normalize(),
 		{
@@ -52,7 +52,7 @@ export const useGlobalStyles = makeStyles({
 			},
 		},
 	),
-})
+}))
 
 export const GlobalStyles = () => {
 	useGlobalStyles()

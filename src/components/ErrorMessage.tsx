@@ -6,11 +6,14 @@ interface Props {
 }
 
 const useStyles = makeStyles(style => ({
-	msg: style(style.p(4), {
-		backgroundColor: 'tomato',
-		color: 'white',
-		textTransform: 'uppercase',
-	}),
+	msg: style.compose(
+		style.p(4),
+		{
+			backgroundColor: 'tomato',
+			color: 'white',
+			textTransform: 'uppercase',
+		},
+	),
 }))
 
 const ErrorMessage: React.FunctionComponent<Props> = ({

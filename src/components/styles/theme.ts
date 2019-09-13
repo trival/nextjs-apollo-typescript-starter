@@ -42,7 +42,14 @@ export const themeConfig = {
 		gray: colorGray,
 	},
 	borders: { basic: 'solid .125rem' },
-	breakpoints: [breakpointSmall, breakpointMedium, breakpointLarge],
+	breakpoints: Object.assign(
+		[breakpointSmall, breakpointMedium, breakpointLarge],
+		{
+			small: breakpointSmall,
+			medium: breakpointMedium,
+			large: breakpointLarge,
+		},
+	),
 	radii: { pill: '9999px' },
 	textStyles: {
 		active: {
@@ -53,7 +60,7 @@ export const themeConfig = {
 }
 
 const { theme, makeStyles } = makeStyleTheme(themeConfig)
-console.log('theme', theme, makeStyles)
+console.log('theme', typeof theme, theme, makeStyles)
 
 export type Theme = typeof theme
 export { theme, makeStyles }

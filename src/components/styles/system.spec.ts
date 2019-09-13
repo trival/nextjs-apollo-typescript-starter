@@ -53,10 +53,10 @@ describe('style system', () => {
 				const style = helpers.m([1, 2, 3])
 				expect(style).toEqual({
 					margin: '1px',
-					'@media screen and (minWidth: 20em)': {
+					'@media screen and (min-width: 20em)': {
 						margin: '2px',
 					},
-					'@media screen and (minWidth: 40em)': {
+					'@media screen and (min-width: 40em)': {
 						margin: '3px',
 					},
 				})
@@ -171,7 +171,6 @@ describe('style system', () => {
 		})
 
 		it('create the helper object', () => {
-			expect(typeof theme).toBe('function')
 			expect(typeof theme.m).toBe('function')
 			expect(typeof theme.px).toBe('function')
 			expect(typeof theme.t).toBe('function')
@@ -180,17 +179,21 @@ describe('style system', () => {
 
 		it('composes responsive styles', () => {
 			const $ = theme
-			const styleObj = $($.m([1, 2, 3]), $.p([1, 2, 3]), $.t([1, 2, 3]))
+			const styleObj = $.compose(
+				$.m([1, 2, 3]),
+				$.p([1, 2, 3]),
+				$.t([1, 2, 3]),
+			)
 			expect(styleObj).toMatchObject({
 				top: '1px',
 				margin: '1px',
 				padding: '1px',
-				'@media screen and (minWidth: 20em)': {
+				'@media screen and (min-width: 20em)': {
 					top: '2px',
 					margin: '2px',
 					padding: '2px',
 				},
-				'@media screen and (minWidth: 40em)': {
+				'@media screen and (min-width: 40em)': {
 					top: '3px',
 					margin: '3px',
 					padding: '3px',

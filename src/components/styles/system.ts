@@ -7,6 +7,10 @@ import {
 } from '@material-ui/styles/withStyles'
 import { createUseStyles, ThemeProvider, useTheme } from 'react-jss'
 
+/**
+ * TODO: Export this utils into own styled system library
+ */
+
 type S = number | string
 
 function merge(a: any, b: any) {
@@ -28,7 +32,7 @@ interface SpaceConfig {
 }
 
 function atBreakpoint(s: S) {
-	return `@media screen and (minWidth: ${s})`
+	return `@media screen and (min-width: ${s})`
 }
 
 export function makeSpaceHelpers(config: SpaceConfig) {
@@ -121,8 +125,7 @@ export function makeStyleTheme<ThemeConfig extends SpaceConfig>(
 	themeConfig: ThemeConfig,
 ) {
 	const theme = Object.assign(
-		compose,
-		{ compose },
+		{ compose, $: compose },
 		makeSpaceHelpers(themeConfig),
 		themeConfig,
 	)

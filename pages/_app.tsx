@@ -24,17 +24,17 @@ class MyApp extends App<Props> {
 		const { Component, pageProps, apolloClient } = (this as any).props
 		return (
 			<ApolloProvider client={apolloClient}>
-				{/* <ThemeProvider theme={theme}> */}
-				<Head>
-					<meta
-						name="viewport"
-						content="width=device-width, initial-scale=1, shrink-to-fit=no"
-					/>
-					<meta httpEquiv="x-ua-compatible" content="ie=edge" />
-				</Head>
-				<GlobalStyles />
-				<Component {...pageProps} />
-				{/* </ThemeProvider> */}
+				<ThemeProvider theme={theme}>
+					<Head>
+						<meta
+							name="viewport"
+							content="width=device-width, initial-scale=1, shrink-to-fit=no"
+						/>
+						<meta httpEquiv="x-ua-compatible" content="ie=edge" />
+					</Head>
+					<GlobalStyles />
+					<Component {...pageProps} />
+				</ThemeProvider>
 			</ApolloProvider>
 		)
 	}
