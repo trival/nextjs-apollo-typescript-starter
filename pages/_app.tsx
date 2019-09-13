@@ -2,8 +2,8 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import App from 'next/app'
 import Head from 'next/head'
 import * as React from 'react'
-import { ThemeProvider } from 'react-jss'
-import { GlobalStyles } from '../src/components/styles/globalStyle'
+import { GlobalStyles } from '../src/components/styles/GlobalStyle'
+import { ThemeProvider } from '../src/components/styles/system'
 import { theme } from '../src/components/styles/theme'
 import withApolloClient from '../src/lib/with-apollo-client'
 
@@ -23,19 +23,19 @@ class MyApp extends App<Props> {
 	render() {
 		const { Component, pageProps, apolloClient } = (this as any).props
 		return (
-			<ThemeProvider theme={theme}>
-				<ApolloProvider client={apolloClient}>
-					<Head>
-						<meta
-							name="viewport"
-							content="width=device-width, initial-scale=1, shrink-to-fit=no"
-						/>
-						<meta httpEquiv="x-ua-compatible" content="ie=edge" />
-					</Head>
-					<GlobalStyles />
-					<Component {...pageProps} />
-				</ApolloProvider>
-			</ThemeProvider>
+			<ApolloProvider client={apolloClient}>
+				{/* <ThemeProvider theme={theme}> */}
+				<Head>
+					<meta
+						name="viewport"
+						content="width=device-width, initial-scale=1, shrink-to-fit=no"
+					/>
+					<meta httpEquiv="x-ua-compatible" content="ie=edge" />
+				</Head>
+				<GlobalStyles />
+				<Component {...pageProps} />
+				{/* </ThemeProvider> */}
+			</ApolloProvider>
 		)
 	}
 }

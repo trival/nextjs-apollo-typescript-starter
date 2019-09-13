@@ -1,4 +1,4 @@
-import { makeStyleHelpers } from './system'
+import { makeStyleTheme } from './system'
 
 export const fontSizeInit = '16px'
 
@@ -20,7 +20,7 @@ export const breakpointSmall = '640px'
 
 export const lineHight = 1.4
 
-export const themeObject = {
+export const themeConfig = {
 	spacing: ['0', '.25rem', '.5rem', '1rem', '2rem', '4rem'],
 	fontSizes: {
 		init: fontSizeInit,
@@ -52,12 +52,8 @@ export const themeObject = {
 	},
 }
 
-export const theme = Object.assign(
-	makeStyleHelpers({
-		spacing: themeObject.spacing,
-		breakpoints: themeObject.breakpoints,
-	}),
-	themeObject,
-)
+const { theme, makeStyles } = makeStyleTheme(themeConfig)
+console.log('theme', theme, makeStyles)
 
 export type Theme = typeof theme
+export { theme, makeStyles }

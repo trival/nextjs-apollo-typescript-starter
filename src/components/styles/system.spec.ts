@@ -1,8 +1,8 @@
 import {
 	makeSpaceHelpers,
-	makeStyleHelpers,
+	makeStyleTheme,
 	SpaceHelpers,
-	StyleHelpers,
+	ThemeHelpers,
 } from './system'
 
 describe('style system', () => {
@@ -162,24 +162,24 @@ describe('style system', () => {
 	})
 
 	describe('makeStyleHelpers', () => {
-		let styles: StyleHelpers
+		let theme: ThemeHelpers['theme']
 		const spacing = [0, '1px', '2px', '3px']
 		const breakpoints = ['20em', '40em', '60em']
 
 		beforeEach(() => {
-			styles = makeStyleHelpers({ spacing, breakpoints })
+			theme = makeStyleTheme({ spacing, breakpoints }).theme
 		})
 
 		it('create the helper object', () => {
-			expect(typeof styles).toBe('function')
-			expect(typeof styles.m).toBe('function')
-			expect(typeof styles.px).toBe('function')
-			expect(typeof styles.t).toBe('function')
-			expect(typeof styles.compose).toBe('function')
+			expect(typeof theme).toBe('function')
+			expect(typeof theme.m).toBe('function')
+			expect(typeof theme.px).toBe('function')
+			expect(typeof theme.t).toBe('function')
+			expect(typeof theme.compose).toBe('function')
 		})
 
 		it('composes responsive styles', () => {
-			const $ = styles
+			const $ = theme
 			const styleObj = $($.m([1, 2, 3]), $.p([1, 2, 3]), $.t([1, 2, 3]))
 			expect(styleObj).toMatchObject({
 				top: '1px',

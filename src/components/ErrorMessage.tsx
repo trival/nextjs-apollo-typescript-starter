@@ -1,13 +1,12 @@
 import * as React from 'react'
-import { styles } from './styles/system'
-import { Theme } from './styles/theme'
+import { makeStyles } from './styles/theme'
 
 interface Props {
 	message?: string
 }
 
-const useStyles = styles(($: Theme) => ({
-	msg: $($.p(4), {
+const useStyles = makeStyles(style => ({
+	msg: style(style.p(4), {
 		backgroundColor: 'tomato',
 		color: 'white',
 		textTransform: 'uppercase',

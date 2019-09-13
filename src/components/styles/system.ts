@@ -1,6 +1,11 @@
 import createStyles from '@material-ui/styles/createStyles'
-import MUImakeStyles from '@material-ui/styles/makeStyles'
-import { createUseStyles } from 'react-jss'
+import { StylesHook } from '@material-ui/styles/makeStyles'
+import {
+	CSSProperties,
+	Styles,
+	WithStylesOptions,
+} from '@material-ui/styles/withStyles'
+import { createUseStyles, ThemeProvider, useTheme } from 'react-jss'
 
 type S = number | string
 
@@ -13,7 +18,7 @@ function merge(a: any, b: any) {
 	return result
 }
 
-function compose(...args: any[]) {
+function compose(...args: CSSProperties[]): CSSProperties {
 	return args.reduce(merge, {})
 }
 
@@ -107,12 +112,25 @@ export function makeSpaceHelpers(config: SpaceConfig) {
 	}
 }
 
-export function makeStyleHelpers(config: SpaceConfig) {
-	return Object.assign(compose, { compose }, makeSpaceHelpers(config))
+type MakeStyles<T, Props extends {} = {}, ClassKey extends string = string> = (
+	styles: Styles<T, Props, ClassKey>,
+	options?: Omit<WithStylesOptions<T>, 'withTheme'>,
+) => StylesHook<Styles<T, Props, ClassKey>>
+
+export function makeStyleTheme<ThemeConfig extends SpaceConfig>(
+	themeConfig: ThemeConfig,
+) {
+	const theme = Object.assign(
+		compose,
+		{ compose },
+		makeSpaceHelpers(themeConfig),
+		themeConfig,
+	)
+	const makeStyles = createUseStyles as MakeStyles<typeof theme>
+	return { theme, makeStyles }
 }
 
 export type SpaceHelpers = ReturnType<typeof makeSpaceHelpers>
-export type StyleHelpers = ReturnType<typeof makeStyleHelpers>
+export type ThemeHelpers = ReturnType<typeof makeStyleTheme>
 
-export const styles: typeof MUImakeStyles = createUseStyles
-export { createStyles }
+export { createStyles, ThemeProvider, useTheme }

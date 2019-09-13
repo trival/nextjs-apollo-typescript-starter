@@ -1,10 +1,10 @@
 import { configure, addDecorator } from '@storybook/react'
-// @ts-ignore
 import NextRouter from 'next/router'
 import { action } from '@storybook/addon-actions'
-import { useGlobalStyles } from '../src/components/styles/globalStyle'
+import { GlobalStyles } from '../src/components/styles/GlobalStyle'
 import * as React from 'react'
 import { theme } from '../src/components/styles/theme'
+import { useTheme, ThemeProvider } from '../src/components/styles/system'
 
 // ===== general setup =====
 
@@ -18,13 +18,28 @@ NextRouter.router = mockedRouter
 // ===== add decoratore =====
 
 const Story = ({ story }) => {
-	useGlobalStyles(theme)
-	return <>{story()}</>
+	const useThemeTheme = useTheme()
+	console.log('useTheme', useThemeTheme)
+	console.log('globalTheme', theme)
+	return (
+		<>
+			<GlobalStyles />
+			{story()}
+		</>
+	)
 }
+
+const Provider = ({ children }) => (
+	<ThemeProvider theme={theme}>{children}</ThemeProvider>
+)
 
 // add global styles and theme
 addDecorator(story => {
-	return <Story story={story} />
+	return (
+		<Provider>
+			<Story story={story} />
+		</Provider>
+	)
 })
 
 // ===== load stories =====

@@ -1,15 +1,13 @@
 import * as React from 'react'
-import { breakpointLarge } from '../styles/theme'
-import { styles } from './system'
-import { $ } from './theme'
+import { breakpointLarge, makeStyles } from '../styles/theme'
 
-const useStyles = styles({
-	container: $($.mx('auto'), $.px([4, 5]), $.py([2, 3]), {
+const useStyles = makeStyles(style => ({
+	container: style(style.mx('auto'), style.px([4, 5]), style.py([2, 3]), {
 		position: 'relative',
 		maxWidth: breakpointLarge,
 		textAlign: 'left',
 	}),
-})
+}))
 
 const Container = ({ children, ...props }: React.PropsWithChildren<any>) => {
 	const c = useStyles()
