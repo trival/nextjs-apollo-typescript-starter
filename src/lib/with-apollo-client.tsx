@@ -77,7 +77,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject> | null = null
  * Always creates a new apollo client on the server
  * Creates or reuses apollo client in the browser.
  */
-function initApolloClient(initialState = {}) {
+function initApolloClient(initialState?: any) {
 	// Make sure to create a new client for every server-side request so that data
 	// isn't shared between connections (which would be bad)
 	// tslint:disable-next-line: strict-type-predicates

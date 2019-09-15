@@ -17,27 +17,13 @@ NextRouter.router = mockedRouter
 
 // ===== add decoratore =====
 
-const Story = ({ story }) => {
-	return (
-		<>
-			<GlobalStyles />
-			{story()}
-		</>
-	)
-}
-
-const Provider = ({ children }) => (
-	<ThemeProvider theme={theme}>{children}</ThemeProvider>
-)
-
 // add global styles and theme
-addDecorator(story => {
-	return (
-		<Provider>
-			<Story story={story} />
-		</Provider>
-	)
-})
+addDecorator(story => (
+	<ThemeProvider theme={theme}>
+		<GlobalStyles />
+		{story()}
+	</ThemeProvider>
+))
 
 // ===== load stories =====
 
