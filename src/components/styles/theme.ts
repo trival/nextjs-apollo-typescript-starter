@@ -60,7 +60,6 @@ export const themeConfig = {
 }
 
 const { theme, makeStyles } = makeStyleTheme(themeConfig)
-console.log('theme', typeof theme, theme, makeStyles)
 
 export type Theme = typeof theme
 export { theme, makeStyles }

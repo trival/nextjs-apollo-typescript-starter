@@ -4,7 +4,7 @@ import { action } from '@storybook/addon-actions'
 import { GlobalStyles } from '../src/components/styles/GlobalStyle'
 import * as React from 'react'
 import { theme } from '../src/components/styles/theme'
-import { useTheme, ThemeProvider } from '../src/components/styles/system'
+import { ThemeProvider } from '../src/components/styles/system'
 
 // ===== general setup =====
 
@@ -18,9 +18,6 @@ NextRouter.router = mockedRouter
 // ===== add decoratore =====
 
 const Story = ({ story }) => {
-	const useThemeTheme = useTheme()
-	console.log('useTheme', useThemeTheme)
-	console.log('globalTheme', theme)
 	return (
 		<>
 			<GlobalStyles />
