@@ -4,27 +4,36 @@ import { ErrorMessage } from '../ErrorMessage'
 import { Container } from '../styles/Container'
 import { LoadingAnimation } from './LoadingAnimation'
 
-export function pageQueryContent<T>(
-	Component: React.FunctionComponent<QueryResult<T>>,
-	errorMessage = 'Could not load content.',
+interface Options {
+	errorMessage?: string
+	nullOnloading?: boolean
+}
+
+export function isQueryLoading(
+	result: QueryResult,
+	{
+		errorMessage = 'Could not load content.',
+		nullOnloading = false,
+	}: Options = {},
 ) {
-	return (result: QueryResult<T>) => {
-		const { error, loading } = result
-		if (error) {
-			console.error(error)
-			return (
-				<Container>
-					<ErrorMessage>{errorMessage}</ErrorMessage>
-				</Container>
-			)
-		}
-		if (loading) {
-			return (
-				<Container>
-					<LoadingAnimation m={3} />
-				</Container>
-			)
-		}
-		return <Component {...result} />
+	const { error, loading } = result
+	if (error) {
+		console.error(error)
+		return (
+			<Container>
+				<ErrorMessage>{errorMessage}</ErrorMessage>
+			</Container>
+		)
 	}
+	if (loading) {
+		if (nullOnloading) {
+			return <>{null}</>
+		}
+		return (
+			<Container>
+				<LoadingAnimation />
+			</Container>
+		)
+	}
+	return false
 }

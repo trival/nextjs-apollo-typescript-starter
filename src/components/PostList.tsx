@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 import * as React from 'react'
 import { PostOrderBy } from '../../generated/globalTypes'
 import { ErrorMessage } from './ErrorMessage'
+import { isQueryLoading } from './shared/Query'
 
 export const allPostsQuery = gql`
 	query allPosts($first: Int!, $skip: Int!, $order: PostOrderBy) {
@@ -17,27 +18,26 @@ export const allPostsQuery = gql`
 `
 
 const PostList: React.FunctionComponent = () => {
-	const { loading, error, data } = useQuery(allPostsQuery, {
+	const result = useQuery(allPostsQuery, {
 		variables: { skip: 0, first: 10, order: PostOrderBy.createdAt_DESC },
 	})
 
-	if (error) return <ErrorMessage message="Error loading data." />
-	if (loading) return <div>Loading...</div>
-
 	return (
-		<section>
-			<ul>
-				{data.allPosts.map((post: any, index: any) => (
-					<li key={post.id}>
-						<p>
-							<span>{index + 1}. </span>
-							{post.title}
-						</p>
-						<p>{post.url}</p>
-					</li>
-				))}
-			</ul>
-		</section>
+		isQueryLoading(result) || (
+			<section>
+				<ul>
+					{result.data.allPosts.map((post: any, index: any) => (
+						<li key={post.id}>
+							<p>
+								<span>{index + 1}. </span>
+								{post.title}
+							</p>
+							<p>{post.url}</p>
+						</li>
+					))}
+				</ul>
+			</section>
+		)
 	)
 }
 

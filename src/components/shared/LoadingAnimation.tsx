@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { hideVisually } from 'polished'
 import * as React from 'react'
 import { makeStyles } from '../styles/theme'
@@ -47,10 +48,10 @@ const useStyles = makeStyles({
 	loading: hideVisually(),
 })
 
-const LoadingAnimation = (props: any) => {
+const LoadingAnimation = (props: { className?: string }) => {
 	const cs = useStyles()
 	return (
-		<div {...props} className={cs.container}>
+		<div className={clsx(cs.container, props.className)}>
 			<div className={cs.bounce1} />
 			<div className={cs.bounce2} />
 			<div className={cs.bounce} />
