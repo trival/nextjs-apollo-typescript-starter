@@ -50,7 +50,6 @@ export default (App: any) => {
 
 			// Extract query data from the Apollo store
 			const apolloState = staticApolloClient.cache.extract()
-			console.log('rendering apollo serverside!!!!!!', apolloState)
 
 			return {
 				...appProps,
