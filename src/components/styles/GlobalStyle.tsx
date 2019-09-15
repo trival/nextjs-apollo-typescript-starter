@@ -8,7 +8,7 @@ export const useGlobalStyles = makeStyles(theme => ({
 			body: {
 				color: theme.colors.fontLight,
 				fontFamily:
-					"-apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif",
+					'-apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica, helvetica neue, ubuntu, roboto, noto, segoe ui, arial, sans-serif',
 				textAlign: 'center',
 				backgroundColor: theme.colors.gray,
 				transition: 'background-color 0.5s',
