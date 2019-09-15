@@ -5,11 +5,6 @@ import fetch from 'isomorphic-unfetch'
 import Head from 'next/head'
 import * as React from 'react'
 
-let apolloClient: ApolloClient<NormalizedCacheObject> | null = null
-
-// tslint:disable-next-line: strict-type-predicates
-const isServer = typeof window === 'undefined'
-
 export default (App: any) => {
 	return class Apollo extends React.Component<any> {
 		static displayName = 'withApollo(App)'
@@ -17,18 +12,21 @@ export default (App: any) => {
 		static async getInitialProps(ctx: any) {
 			const { AppTree } = ctx
 
+			// Run all GraphQL queries in the component tree
+			// and extract the resulting data
+			const staticApolloClient = initApolloClient()
+
 			let appProps = {}
 			if (App.getInitialProps) {
 				appProps = await App.getInitialProps(ctx)
+				ctx.apolloClient = staticApolloClient
 			}
 
-			// Run all GraphQL queries in the component tree
-			// and extract the resulting data
-			const apolloClient = initApolloClient()
-			if (isServer) {
+			// tslint:disable-next-line: strict-type-predicates
+			if (typeof window === 'undefined') {
 				// When redirecting, the response is finished.
 				// No point in continuing to render
-				if (ctx.res && ctx.res.finished) {
+				if (ctx.res && (ctx.res.headersSent || ctx.res.finished)) {
 					return appProps
 				}
 
@@ -36,12 +34,7 @@ export default (App: any) => {
 					// Run all GraphQL queries
 					const { getDataFromTree } = await import('@apollo/react-ssr')
 					await getDataFromTree(
-						<AppTree
-							pageProps={{
-								...appProps,
-								apolloClient,
-							}}
-						/>,
+						<AppTree {...appProps} apolloClient={staticApolloClient} />,
 					)
 				} catch (error) {
 					// Prevent Apollo Client GraphQL errors from crashing SSR.
@@ -56,7 +49,8 @@ export default (App: any) => {
 			}
 
 			// Extract query data from the Apollo store
-			const apolloState = apolloClient.cache.extract()
+			const apolloState = staticApolloClient.cache.extract()
+			console.log('rendering apollo serverside!!!!!!', apolloState)
 
 			return {
 				...appProps,
@@ -68,23 +62,27 @@ export default (App: any) => {
 
 		constructor(props: any) {
 			super(props)
-			this.apolloClient = initApolloClient(props.apolloState)
+			this.apolloClient =
+				props.apolloClient || initApolloClient(props.apolloState)
 		}
 
 		render() {
-			return <App {...this.props} apolloClient={this.apolloClient} />
+			return <App apolloClient={this.apolloClient} {...this.props} />
 		}
 	}
 }
+
+let apolloClient: ApolloClient<NormalizedCacheObject> | null = null
 
 /**
  * Always creates a new apollo client on the server
  * Creates or reuses apollo client in the browser.
  */
-function initApolloClient(initialState?: any) {
+function initApolloClient(initialState = {}) {
 	// Make sure to create a new client for every server-side request so that data
 	// isn't shared between connections (which would be bad)
-	if (isServer) {
+	// tslint:disable-next-line: strict-type-predicates
+	if (typeof window === 'undefined') {
 		return createApolloClient(initialState)
 	}
 
@@ -100,7 +98,8 @@ function initApolloClient(initialState?: any) {
  * Creates and configures the ApolloClient
  */
 function createApolloClient(initialState = {}) {
-	// Check out https://github.com/zeit/next.js/pull/4611 if you want to use the AWSAppSyncClient
+	// tslint:disable-next-line: strict-type-predicates
+	const isServer = typeof window === 'undefined'
 	return new ApolloClient({
 		ssrMode: isServer, // Disables forceFetch on the server (so queries are only run once)
 		link: new HttpLink({
@@ -108,6 +107,10 @@ function createApolloClient(initialState = {}) {
 			credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
 			fetch,
 		}),
-		cache: new InMemoryCache().restore(initialState),
+		cache: new InMemoryCache({
+			freezeResults: process.env.NODE_ENV !== 'production',
+		}).restore(initialState),
+		assumeImmutableResults: true,
+		ssrForceFetchDelay: 20,
 	})
 }
