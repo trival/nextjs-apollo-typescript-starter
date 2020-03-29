@@ -1,5 +1,4 @@
-import { makeStyleTheme } from './system'
-
+import { makeStyleTheme } from 'jss-style-helpers'
 export const fontSizeInit = '16px'
 
 export const fontSizeBase = '1rem'

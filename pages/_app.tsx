@@ -3,9 +3,9 @@ import App from 'next/app'
 import Head from 'next/head'
 import * as React from 'react'
 import { GlobalStyles } from '../src/components/styles/GlobalStyle'
-import { ThemeProvider } from '../src/components/styles/system'
 import { theme } from '../src/components/styles/theme'
 import withApolloClient from '../src/lib/with-apollo-client'
+import { ThemeProvider } from 'react-jss'
 
 interface Props {
 	apolloClient: any
