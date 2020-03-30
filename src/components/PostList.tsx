@@ -2,7 +2,6 @@ import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import * as React from 'react'
 import { PostOrderBy } from '../../generated/globalTypes'
-import { ErrorMessage } from './ErrorMessage'
 import { isQueryLoading } from './shared/Query'
 
 export const allPostsQuery = gql`

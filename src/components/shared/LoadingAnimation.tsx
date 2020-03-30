@@ -48,10 +48,14 @@ const useStyles = makeStyles({
 	loading: hideVisually(),
 })
 
-const LoadingAnimation = (props: { className?: string }) => {
+interface Props {
+	className?: string
+}
+
+const LoadingAnimation = ({ className }: Props) => {
 	const cs = useStyles()
 	return (
-		<div className={clsx(cs.container, props.className)}>
+		<div className={clsx(cs.container, className)}>
 			<div className={cs.bounce1} />
 			<div className={cs.bounce2} />
 			<div className={cs.bounce} />

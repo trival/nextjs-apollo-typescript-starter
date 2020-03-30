@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { makeStyles } from '../styles/theme'
+import { makeStyles } from "./theme"
 
 const useStyles = makeStyles(style => ({
 	container: style.compose(

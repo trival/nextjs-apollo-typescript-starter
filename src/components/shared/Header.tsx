@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx'
 import Link from 'next/link'
 import { NextRouter, useRouter } from 'next/router'
@@ -29,7 +30,7 @@ const useStyles = makeStyles(style => ({
 
 const Header = () => {
 	const router = useRouter()
-	return <HeaderLayout router={router}></HeaderLayout>
+	return <HeaderLayout router={router} />
 }
 
 export { Header, HeaderLayout }

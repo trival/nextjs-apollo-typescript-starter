@@ -1,8 +1,5 @@
 import * as React from 'react'
-
 import { Container } from '../components/styles/Container'
-
-const box = { borderColor: 'white', border: 'basic' }
 
 export default {
 	title: 'Styleguide',

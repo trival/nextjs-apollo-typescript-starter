@@ -1,12 +1,12 @@
-import React, { ReactNode } from 'react'
-import App, { AppContext } from 'next/app'
-import Head from 'next/head'
 import { ApolloProvider } from '@apollo/react-hooks'
-import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
+import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import fetch from 'isomorphic-unfetch'
 import { NextPageContext } from 'next'
+import App, { AppContext } from 'next/app'
+import Head from 'next/head'
+import React from 'react'
 
 // On the client, we store the Apollo Client in the following variable.
 // This prevents the client from reinitializing between page transitions.

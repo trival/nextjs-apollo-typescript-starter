@@ -2,9 +2,9 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import App from 'next/app'
 import Head from 'next/head'
 import * as React from 'react'
+import { ThemeProvider } from 'react-jss'
 import { GlobalStyles } from '../src/components/styles/GlobalStyle'
 import { theme } from '../src/components/styles/theme'
-import { ThemeProvider } from 'react-jss'
 import { withApollo } from '../src/lib/with-apollo-client'
 
 interface Props {
