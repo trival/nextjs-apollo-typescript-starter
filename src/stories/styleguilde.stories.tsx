@@ -1,11 +1,14 @@
 import * as React from 'react'
 
-import { storiesOf } from '@storybook/react'
 import { Container } from '../components/styles/Container'
 
 const box = { borderColor: 'white', border: 'basic' }
 
-storiesOf('Styleguide', module).add('Typography', () => (
+export default {
+	title: 'Styleguide',
+}
+
+export const typography = () => (
 	<Container>
 		<h1>Headline h1</h1>
 		<h2>Headline h2</h2>
@@ -43,4 +46,4 @@ storiesOf('Styleguide', module).add('Typography', () => (
 			Schmerz an sich liebt, sucht oder wünscht, nur,
 		</p>
 	</Container>
-))
+)

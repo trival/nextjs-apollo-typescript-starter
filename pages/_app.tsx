@@ -4,8 +4,8 @@ import Head from 'next/head'
 import * as React from 'react'
 import { GlobalStyles } from '../src/components/styles/GlobalStyle'
 import { theme } from '../src/components/styles/theme'
-import withApolloClient from '../src/lib/with-apollo-client'
 import { ThemeProvider } from 'react-jss'
+import { withApollo } from '../src/lib/with-apollo-client'
 
 interface Props {
 	apolloClient: any
@@ -40,4 +40,4 @@ class MyApp extends App<Props> {
 	}
 }
 
-export default withApolloClient(MyApp)
+export default withApollo({ ssr: true })(MyApp)
