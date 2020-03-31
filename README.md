@@ -17,8 +17,10 @@ yarn dev
 # Build the project for production
 yarn build
 # Start the production build version
-yarn build
-# Fetch external graphql schema
+yarn start
+# Fetch external graphql schema and regenerate typescript types
+yarn graphql:update
+# Or separately: fetch external graphql schema
 yarn graphql:schema
 # Generate apollo graphql client typescript types
 yarn graphql:types

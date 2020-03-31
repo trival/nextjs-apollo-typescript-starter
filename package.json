@@ -15,7 +15,8 @@
     "storybook:build": "build-storybook",
     "graphql:schema": "apollo client:download-schema --endpoint=https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn --config=./apollo.config.dummy.js",
     "graphql:types": "apollo client:codegen --includes=\"src/**/*.{ts,tsx}\" --excludes=node_modules --target=typescript generated",
-    "graphql:types:watch": "yarn graphql:types --watch"
+    "graphql:types:watch": "yarn graphql:types --watch",
+    "graphql:update": "yarn graphql:schema && yarn graphql:types"
   },
   "dependencies": {
     "@apollo/react-common": "^3.1.3",
