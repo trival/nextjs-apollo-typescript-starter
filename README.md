@@ -1,7 +1,7 @@
 # nextjs-typescript-graphql-starter
 
-Starter nextjs project configured for typescript, apollo graphql, jss, storybook
-and jest.
+A nextjs starter project configured for typescript, apollo graphql, jss,
+storybook and jest.
 
 Clone this repo as a boilerplate for your own projects.
 
@@ -45,10 +45,11 @@ yarn test:types
 
 ## Contributing
 
-Your contributions and suggestions are greatly appreciated. Submit you issues
-and PRs on [github](https://github.com/trival/jss-style-helpers). Please add
-unit tests for any new or changed functionality. Format, lint and test your code
-with the provided configurations.
+Your contributions and suggestions are greatly appreciated. Submit your issues
+and PRs on
+[github](https://github.com/trival/nextjs-typescript-graphql-starter). Please
+add unit tests for any new or changed functionality. Format, lint and test your
+code with the provided configurations.
 
 ## License
 
