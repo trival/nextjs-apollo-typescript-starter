@@ -18,7 +18,12 @@ let globalApolloClient: ApolloClient<any> | null = null
  * inside getStaticProps, getStaticPaths or getServerSideProps
  * @param {NextPageContext | NextAppContext} ctx
  */
-export const initOnContext = (ctx: (NextPageContext | AppContext) & {apolloClient: ApolloClient<any>, apolloState: any}) => {
+export const initOnContext = (
+	ctx: (NextPageContext | AppContext) & {
+		apolloClient: ApolloClient<any>
+		apolloState: any
+	},
+) => {
 	const inAppContext = Boolean((ctx as AppContext).ctx)
 
 	// We consider installing `withApollo({ ssr: true })` on global App level
@@ -35,20 +40,23 @@ export const initOnContext = (ctx: (NextPageContext | AppContext) & {apolloClien
 	// Initialize ApolloClient if not already done
 	const apolloClient =
 		ctx.apolloClient ||
-		initApolloClient(ctx.apolloState || {}, Boolean(inAppContext ? (ctx as AppContext).ctx : ctx))
+		initApolloClient(
+			ctx.apolloState || {},
+			Boolean(inAppContext ? (ctx as AppContext).ctx : ctx),
+		)
 
-		// We send the Apollo Client as a prop to the component to avoid calling initApollo() twice in the server.
-		// Otherwise, the component would have to call initApollo() again but this
-		// time without the context. Once that happens, the following code will make sure we send
-		// the prop as `null` to the browser.
-		;(apolloClient as any).toJSON = () => null
+	// We send the Apollo Client as a prop to the component to avoid calling initApollo() twice in the server.
+	// Otherwise, the component would have to call initApollo() again but this
+	// time without the context. Once that happens, the following code will make sure we send
+	// the prop as `null` to the browser.
+	;(apolloClient as any).toJSON = () => null
 
 	// Add apolloClient to NextPageContext & NextAppContext.
 	// This allows us to consume the apolloClient inside our
 	// custom `getInitialProps({ apolloClient })`.
 	ctx.apolloClient = apolloClient
 	if (inAppContext) {
-		(ctx as any).ctx.apolloClient = apolloClient
+		;(ctx as any).ctx.apolloClient = apolloClient
 	}
 
 	return ctx
@@ -84,7 +92,7 @@ const initApolloClient = (initialState: any, ssrMode?: boolean) => {
  * @returns {(PageComponent: ReactNode) => ReactNode}
  */
 export const withApollo = ({ ssr = false } = {}) => (PageComponent: any) => {
-	const WithApollo = ({ apolloClient, apolloState, ...pageProps } :any) => {
+	const WithApollo = ({ apolloClient, apolloState, ...pageProps }: any) => {
 		let client
 		if (apolloClient) {
 			// Happens on: getDataFromTree & next.js ssr
@@ -179,10 +187,7 @@ export const withApollo = ({ ssr = false } = {}) => (PageComponent: any) => {
 	return WithApollo
 }
 
-export function createApolloClient(
-	initialState: any,
-	ssrMode?: boolean,
-) {
+export function createApolloClient(initialState: any, ssrMode?: boolean) {
 	// The `ctx` (NextPageContext) will only be present on the server.
 	// use it to extract auth headers (ctx.req) or similar.
 	return new ApolloClient({

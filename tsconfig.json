@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "es2015",
-      "esnext"
-    ],
+    "lib": ["dom", "es2015", "esnext"],
     "module": "esnext",
     "strict": true,
     "target": "es5",
@@ -18,12 +14,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.js", "**/*.tsx"]
 }
