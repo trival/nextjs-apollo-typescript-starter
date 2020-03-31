@@ -1,7 +1,7 @@
 # nextjs-typescript-graphql-starter
 
-Starter nextjs project configured for typescript, apollo graphql, jss and
-storybook.
+Starter nextjs project configured for typescript, apollo graphql, jss, storybook
+and jest.
 
 Clone this repo as a boilerplate for your own projects.
 
